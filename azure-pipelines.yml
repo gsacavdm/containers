@@ -12,3 +12,11 @@ variables:
 steps:
 - script: docker build -f mongoclient/Dockerfile -t $(imageName) .
   displayName: 'docker build'
+- task: Docker@1
+  displayName: 'docker push'
+  inputs:
+    containerregistrytype: 'container Registry'
+    dockerRegistryEndpoint: 'DockerHub-gsacavdm'
+    imageName: 'gsacavdm/mongoclient:$(Build.BuildId)'
+    command: 'push'
+    includeLatestTag: true
